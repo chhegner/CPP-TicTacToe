@@ -7,7 +7,7 @@ class TicTacToe : public Game
 {
 private:
 	//fields
-	int turn = 0;
+	int turn = 1;
 	int* turnPointer = &turn;
 
 	int maxTurn = 9;
@@ -33,11 +33,13 @@ public:
 		else if (m_board[0] == m_board[4] == m_board[8]) { *p_winMethod = 7; return true; }
 		else if (m_board[2] == m_board[4] == m_board[6]) { *p_winMethod = 8; return true; }
 
+		//if Win method is > 0, the game is not a tie. 
+
 		else if (*turnPointer >= *maxTurnPointer) { return true; }
 		else return false;
 	}
 
-	void Display() const
+	void Display() const //draws board
 	{
 		std::cout << m_board[0] << "   |  " << m_board[1] << "   |  " << m_board[2] << "\n";
 		std::cout << "------------\n";
@@ -50,6 +52,7 @@ public:
 	{
 		if (IsGameOver() == false)
 		{
+			//Propmpts player for input, checks validity, passes input through to m_board on success, re-prompts user on fail. Increments turn count to check for filled board at end. 
 			std::cout << "Please make a move, player " << playerTurn + 1 << ": ";
 			std::cin >> userInput;
 			if ((userInput - 1) < 0 && (userInput - 1) > 9)
@@ -63,9 +66,10 @@ public:
 				turn++;
 			}
 		}
-		else if (winMethod < 1) { std::cout << "The game is a draw!"; }
-		else if (turn % 2) { std::cout << "Player 2 wins"; }
-		else { std::cout << "Player 1 wins"; }
+		else if (winMethod < 1) { std::cout << "The game is a draw!"; } //If the winMethod is less than 1, the game is known to have ended in a draw.
+		else if (turn % 2) { std::cout << "Player 2 wins"; } //If the last-played turn is even, and winMethod is > or = to 1, we proved Player 2 has won 
+															//because Player 1 only plays on odd turn numbers, and therefore can only win on odd turns.
+		else { std::cout << "Player 1 wins"; } //If neither of the above is true, player 1 (in theory) has won.
 	}
 };
 
