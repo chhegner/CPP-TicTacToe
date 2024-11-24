@@ -35,7 +35,7 @@ public:
 
 		//if Win method is > 0, the game is not a tie. 
 
-		else if (*turnPointer >= *maxTurnPointer) { return true; }
+		else if (*turnPointer >= *maxTurnPointer) { *p_winMethod = 0; return true; }
 		else return false;
 	}
 
