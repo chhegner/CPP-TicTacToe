@@ -52,14 +52,14 @@ public:
 		{
 			std::cout << "Please make a move, player " << playerTurn + 1 << ": ";
 			std::cin >> userInput;
-			if (userInput > 0 || userInput < 9)
+			if ((userInput - 1) < 0 && (userInput - 1) > 9)
 			{
 				std::cout << "Please input a valid move\n";
 			}
 			else
 			{
-				if (playerTurn = 0) { m_board[userInput] = 'o', playerTurn = 0; }
-				else { m_board[userInput] = 'x', playerTurn = 1; }
+				if (playerTurn = 0) { m_board[userInput - 1] = 'o', playerTurn = 1; }
+				else { m_board[userInput - 1] = 'x', playerTurn = 0; }
 				turn++;
 			}
 		}
